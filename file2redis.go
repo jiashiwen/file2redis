@@ -152,7 +152,7 @@ func doaction(c *cli.Context) {
 		errlog.DealLog()
 		return
 	}
-
+	cfg.RedisType = strings.ToUpper(cfg.RedisType)
 	if !IsRedisType(cfg.RedisType) {
 		errlog.content = "Redis Type must be 'STRINGS, SETS, LISTS, HASHES, SORTEDSETS'"
 		errlog.DealLog()
@@ -167,11 +167,19 @@ func doaction(c *cli.Context) {
 		fmt.Println("parafile and toparafile can not be set together!")
 		return
 	}
-
 	pool := utils.GetPool(cfg.ServerIp + ":" + cfg.ServerPort)
-	conn := utils.GetConnection(pool)
-	// DealFileToHashes(GetIntarray(cfg.KeyIndex), conn, cfg.FileName, cfg.Separator, cfg.RedisKeyName, cfg.Format)
-	DealFileToSets(conn, cfg.FileName, cfg.RedisKeyName)
+
+	switch cfg.RedisType {
+	case "HASHES":
+		conn := utils.GetConnection(pool)
+		DealFileToHashes(GetIntarray(cfg.KeyIndex), conn, cfg.FileName, cfg.Separator, cfg.RedisKeyName, cfg.Format)
+		conn.Close()
+	case "SETS":
+		conn := utils.GetConnection(pool)
+		DealFileToSets(conn, cfg.FileName, cfg.RedisKeyName)
+		conn.Close()
+	}
+
 	pool.Close()
 
 }
