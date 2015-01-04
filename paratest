@@ -1,0 +1,10 @@
+{
+    "serverip": "127.0.0.1",
+    "serverport": "6379",
+    "separator": " ",
+    "keyindex": "0.3",
+    "redistype": "set",
+    "rediskeyname": "",
+    "format": "",
+    "filename": "data.txt"
+}

@@ -1,0 +1,12 @@
+{
+    "serverip": "127.0.0.1",
+    "serverport": "6379",
+    "separator": "|",
+    "keyindex": "0",
+    "redistype": "",
+    "rediskeyname": "",
+    "format": "",
+    "filename": "abc",
+    "logfile": "",
+    "silent": true
+}
